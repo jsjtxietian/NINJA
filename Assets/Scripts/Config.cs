@@ -25,4 +25,14 @@ public class Config : MonoBehaviour
 
     }
 
+    public void InitBullet()
+    {
+        
+    }
+}
+
+public enum BulletType
+{
+    a,
+    b
 }
