@@ -9,40 +9,40 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1777956777478910}
+  m_RootGameObject: {fileID: 1641281763557406}
   m_IsPrefabParent: 1
---- !u!1 &1777956777478910
+--- !u!1 &1641281763557406
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 224095933000720300}
-  - component: {fileID: 222476934729751580}
-  - component: {fileID: 114779909395811424}
-  - component: {fileID: 114804626212424358}
-  - component: {fileID: 61934825880866698}
+  - component: {fileID: 224629274910757398}
+  - component: {fileID: 222124910829327956}
+  - component: {fileID: 114776237440662008}
+  - component: {fileID: 114811386187442134}
+  - component: {fileID: 61035489731682626}
   m_Layer: 5
-  m_Name: Bullet
-  m_TagString: Untagged
+  m_Name: bullet-b
+  m_TagString: b
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &61934825880866698
+--- !u!61 &61035489731682626
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777956777478910}
+  m_GameObject: {fileID: 1641281763557406}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.46035767, y: 0.13153076}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -53,14 +53,14 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 122.85437, y: 42.574585}
   m_EdgeRadius: 0
---- !u!114 &114779909395811424
+--- !u!114 &114776237440662008
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777956777478910}
+  m_GameObject: {fileID: 1641281763557406}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -74,7 +74,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: e9b2d0549d3d47a43af856cb6a70bffe, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -82,36 +82,35 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114804626212424358
+--- !u!114 &114811386187442134
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777956777478910}
+  m_GameObject: {fileID: 1641281763557406}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5a66b121c4be004ca1d74a5b35bad1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Pool: {fileID: 0}
-  type: 0
-  duration: 0
-  harm: 0
-  ways: 0
-  speed: 0
+  type: 1
+  duration: 3
+  harm: 2
+  speed: 5
   direction: {x: 0, y: 0, z: 0}
---- !u!222 &222476934729751580
+--- !u!222 &222124910829327956
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777956777478910}
---- !u!224 &224095933000720300
+  m_GameObject: {fileID: 1641281763557406}
+--- !u!224 &224629274910757398
 RectTransform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777956777478910}
+  m_GameObject: {fileID: 1641281763557406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -121,6 +120,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -552, y: 34.9}
+  m_SizeDelta: {x: 123, y: 41}
   m_Pivot: {x: 0.5, y: 0.5}

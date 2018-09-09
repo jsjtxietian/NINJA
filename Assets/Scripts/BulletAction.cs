@@ -12,32 +12,32 @@ public class BulletAction : MonoBehaviour
     public BulletType type;
     public float duration;
     public int harm;
-    public int ways;
     public int speed;
     public Vector3 direction;
+
+    void Start()
+    {
+        Pool = transform.parent.parent.gameObject.GetComponent<ObjectsPool>();
+    }
 
     void OnEnable()
     {
 	    StartCoroutine(DestorySelf());
     }
 
-    void Update()
+    public void Init(Vector3 _direction)
     {
-        transform.Translate(new Vector3(1,0,0) * 5);
+        direction = _direction;
     }
 
-    public void InitSelf(ObjectsPool pool)
+    void Update()
     {
-        duration = 3.0f;
-        Pool = pool;
-
-        gameObject.GetComponent<Image>().SetNativeSize();
-
+        gameObject.GetComponent<RectTransform>().position += transform.right*speed;
     }
 
     IEnumerator DestorySelf()
     {
         yield return new WaitForSeconds(duration);
-        Pool.ReturnInstance(gameObject);
+        Pool.ReturnInstance(type,gameObject);
     }
 }

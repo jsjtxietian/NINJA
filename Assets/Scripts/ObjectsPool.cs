@@ -4,24 +4,39 @@ using UnityEngine;
 
 public class ObjectsPool : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _prefab;
-    private Queue<GameObject> _pooledInstanceQueue = new Queue<GameObject>();
+    public GameObject BulletFather;
+    private Dictionary<BulletType, Queue<GameObject>> Pool = new Dictionary<BulletType, Queue<GameObject>>();
 
-    public GameObject GetInstance()
+    void Start()
     {
-        if (_pooledInstanceQueue.Count > 0)
+        AddTypeObjects(BulletType.a);
+        AddTypeObjects(BulletType.b);
+    }
+
+    void AddTypeObjects(BulletType type)
+    {
+        Pool.Add(type,new Queue<GameObject>());
+        Transform ObjectsFather = BulletFather.transform.Find("Collection-" + type.ToString());
+        for (int i = 0; i < ObjectsFather.childCount; i++)
         {
-            GameObject instanceToReuse = _pooledInstanceQueue.Dequeue();
+            Pool[type].Enqueue(ObjectsFather.GetChild(i).gameObject);
+        }
+    }
+
+    public GameObject GetInstance(BulletType type)
+    {
+        if (Pool[type].Count > 0) { 
+            GameObject instanceToReuse = Pool[type].Dequeue();
             instanceToReuse.SetActive(true);
             return instanceToReuse;
         }
-        return Instantiate(_prefab);
+
+        return null;
     }
 
-    public void ReturnInstance(GameObject gameObjectToPool)
+    public void ReturnInstance(BulletType type, GameObject gameObjectToPool)
     {
-        _pooledInstanceQueue.Enqueue(gameObjectToPool);
+        Pool[type].Enqueue(gameObjectToPool);
         gameObjectToPool.SetActive(false);
     }
 
