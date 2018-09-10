@@ -32,7 +32,6 @@ public class ItemAction : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Reset();
         if (isLeft)
         {
             Pool = GameObject.Find("UI/Bullets-left").GetComponent<ObjectsPool>();
@@ -44,6 +43,8 @@ public class ItemAction : MonoBehaviour
 
         Center = gameObject.GetComponent<Image>();
         Circle = gameObject.transform.GetChild(1).gameObject.GetComponent<Image>();
+
+        Reset();
     }
 
     public void Init(BulletType type, int _index)
@@ -120,12 +121,12 @@ public class ItemAction : MonoBehaviour
             gameObject.GetComponent<RectTransform>().position = Input.touches[index].position;
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Init(BulletType.b, 0);
-            EnterFight();
-            InvokeRepeating("Shoot", 0, ShootSpeed);
-        }
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    Init(BulletType.b, 0);
+        //    EnterFight();
+        //    InvokeRepeating("Shoot", 0, ShootSpeed);
+        //}
     }
 
     void Reset()
@@ -159,6 +160,8 @@ public class ItemAction : MonoBehaviour
         Circle.color = new Color(1, 1, 1, 0);
         Center.sprite = BlackHalo.sprite;
         Center.color = new Color(1,1,1,1);
+
+        //todo pos
     }
 
     public void EnterReady()
@@ -172,6 +175,8 @@ public class ItemAction : MonoBehaviour
         Center.color = new Color(1, 1, 1, 0.8f);
         GameStart();
     }
+
+
     #endregion
 
 

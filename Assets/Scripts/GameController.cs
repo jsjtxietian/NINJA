@@ -97,5 +97,8 @@ public class GameController : MonoBehaviour
         currentOne = BulletType.None;
         LeftStart = RightStart = false;
         AddNum = 0;
+
+        //end animation
+        StandByUI.SetActive(true);
     }
 }
