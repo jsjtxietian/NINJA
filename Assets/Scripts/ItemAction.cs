@@ -7,7 +7,7 @@ public class ItemAction : MonoBehaviour
 {
     //other gameobject 
     public GameObject BulletsFather;
-
+    public GameController GameController;
     private ObjectsPool Pool;
 
     //self data
@@ -16,6 +16,7 @@ public class ItemAction : MonoBehaviour
     public bool isLeft;
     public bool isGameStart;
     public Image GreenHalo;
+    public Image BlackHalo;
     private Image Center;
     private Image Circle;
 
@@ -31,7 +32,7 @@ public class ItemAction : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        index = 10;
+        Reset();
         if (isLeft)
         {
             Pool = GameObject.Find("UI/Bullets-left").GetComponent<ObjectsPool>();
@@ -41,21 +42,8 @@ public class ItemAction : MonoBehaviour
             Pool = GameObject.Find("UI/Bullets-right").GetComponent<ObjectsPool>();
         }
 
-        isGameStart = false;
         Center = gameObject.GetComponent<Image>();
         Circle = gameObject.transform.GetChild(1).gameObject.GetComponent<Image>();
-    }
-
-    public void EnterReady()
-    {
-        Circle.color = new Color(1, 1, 1, 1);
-    }
-
-    public void EnterFight()
-    {
-        Center.sprite = GreenHalo.sprite;
-        Center.color = new Color(1, 1, 1, 0.8f);
-        GameStart();
     }
 
     public void Init(BulletType type, int _index)
@@ -112,7 +100,7 @@ public class ItemAction : MonoBehaviour
     public void StopGame()
     {
         CancelInvoke();
-        isGameStart = false;
+        Reset();
     }
 
     void Shoot()
@@ -140,9 +128,15 @@ public class ItemAction : MonoBehaviour
         }
     }
 
+    void Reset()
+    {
+        index = 10;
+        isGameStart = false;
+        BackToNormalStyle();
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Enter");
         BulletAction b = other.GetComponent<BulletAction>();
         if (b == null)
             return;
@@ -150,7 +144,35 @@ public class ItemAction : MonoBehaviour
         {
             CurrentLife -= b.harm;
             b.OnHit();
-            Circle.color = new Color(1, 1, 1, (float) 0.8 * (TotalLife - CurrentLife) / TotalLife);
+            Center.color = new Color(1, 1, 1, (float) 0.6 * CurrentLife/ TotalLife + 0.2f);
+
+            if (CurrentLife < 0)
+            {
+                GameController.StopGame();
+            }
         }
     }
+
+    #region style
+    void BackToNormalStyle()
+    {
+        Circle.color = new Color(1, 1, 1, 0);
+        Center.sprite = BlackHalo.sprite;
+        Center.color = new Color(1,1,1,1);
+    }
+
+    public void EnterReady()
+    {
+        Circle.color = new Color(1, 1, 1, 1);
+    }
+
+    public void EnterFight()
+    {
+        Center.sprite = GreenHalo.sprite;
+        Center.color = new Color(1, 1, 1, 0.8f);
+        GameStart();
+    }
+    #endregion
+
+
 }
