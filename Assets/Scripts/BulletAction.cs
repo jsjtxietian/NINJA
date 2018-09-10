@@ -13,7 +13,13 @@ public class BulletAction : MonoBehaviour
     public float duration;
     public int harm;
     public int speed;
-    public Vector3 direction;
+
+    private float originZ;
+
+    void Awake()
+    {
+        originZ = gameObject.GetComponent<RectTransform>().localEulerAngles.z;
+    }
 
     void Start()
     {
@@ -25,14 +31,26 @@ public class BulletAction : MonoBehaviour
 	    StartCoroutine(DestorySelf());
     }
 
-    public void Init(Vector3 _direction)
+    void OnDisable()
     {
-        direction = _direction;
+        gameObject.GetComponent<RectTransform>().localEulerAngles = new Vector3(0,0, originZ);
+    }
+
+    public void Init(int angle)
+    {
+        Vector3 originVector = gameObject.GetComponent<RectTransform>().localEulerAngles ;
+        gameObject.GetComponent<RectTransform>().localEulerAngles = new Vector3(0,0,originVector.z + angle);
+    }
+
+    public void OnHit()
+    {
+        CancelInvoke();
+        Pool.ReturnInstance(type, gameObject);
     }
 
     void Update()
     {
-        gameObject.GetComponent<RectTransform>().position += transform.right*speed;
+        gameObject.GetComponent<RectTransform>().position += transform.right*speed * Time.deltaTime;
     }
 
     IEnumerator DestorySelf()

@@ -29,6 +29,7 @@ public class Config : MonoBehaviour
 
 public enum BulletType
 {
+    None,
     a,
     b
 }

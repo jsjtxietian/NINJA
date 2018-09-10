@@ -67,11 +67,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Pool: {fileID: 0}
-  type: 0
+  type: 1
   duration: 3
   harm: 6
-  speed: 5
-  direction: {x: 0, y: 0, z: 0}
+  speed: 500
 --- !u!114 &114706906455510538
 MonoBehaviour:
   m_ObjectHideFlags: 1

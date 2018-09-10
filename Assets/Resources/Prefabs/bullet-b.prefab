@@ -94,11 +94,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Pool: {fileID: 0}
-  type: 1
+  type: 2
   duration: 3
   harm: 2
-  speed: 5
-  direction: {x: 0, y: 0, z: 0}
+  speed: 500
 --- !u!222 &222124910829327956
 CanvasRenderer:
   m_ObjectHideFlags: 1
