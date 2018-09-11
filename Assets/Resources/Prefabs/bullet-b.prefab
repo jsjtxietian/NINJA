@@ -97,7 +97,7 @@ MonoBehaviour:
   type: 2
   duration: 3
   harm: 2
-  speed: 500
+  speed: 600
 --- !u!222 &222124910829327956
 CanvasRenderer:
   m_ObjectHideFlags: 1

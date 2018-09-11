@@ -99,6 +99,7 @@ public class GameController : MonoBehaviour
         AddNum = 0;
 
         //end animation
+        FightUI.SetActive(false);
         StandByUI.SetActive(true);
     }
 }

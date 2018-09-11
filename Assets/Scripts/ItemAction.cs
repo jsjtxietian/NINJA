@@ -11,12 +11,14 @@ public class ItemAction : MonoBehaviour
     private ObjectsPool Pool;
 
     //self data
+    public float hurtTime;
     public int index;
-
+    public Vector3 initPos;
     public bool isLeft;
     public bool isGameStart;
     public Image GreenHalo;
-    public Image BlackHalo;
+    public Image WhiteHalo;
+    public Image RedHalo;
     private Image Center;
     private Image Circle;
 
@@ -43,7 +45,7 @@ public class ItemAction : MonoBehaviour
 
         Center = gameObject.GetComponent<Image>();
         Circle = gameObject.transform.GetChild(1).gameObject.GetComponent<Image>();
-
+        initPos = gameObject.GetComponent<RectTransform>().position;
         Reset();
     }
 
@@ -56,7 +58,7 @@ public class ItemAction : MonoBehaviour
         switch (type)
         {
             case BulletType.a:
-                ways = 2;
+                ways = 1;
                 ShootSpeed = 0.5f;
                 TotalLife = CurrentLife = 180;
                 break;
@@ -133,35 +135,49 @@ public class ItemAction : MonoBehaviour
     {
         index = 10;
         isGameStart = false;
+        CurrentLife = TotalLife;
+
         BackToNormalStyle();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        BulletAction b = other.GetComponent<BulletAction>();
-        if (b == null)
-            return;
-        else
+        if (isGameStart)
         {
-            CurrentLife -= b.harm;
-            b.OnHit();
-            Center.color = new Color(1, 1, 1, (float) 0.6 * CurrentLife/ TotalLife + 0.2f);
-
-            if (CurrentLife < 0)
+            BulletAction b = other.GetComponent<BulletAction>();
+            if (b == null)
+                return;
+            else
             {
-                GameController.StopGame();
+                CurrentLife -= b.harm;
+                b.OnHit();
+                Center.sprite = RedHalo.sprite;
+
+                StartCoroutine(BackToWhite());
+
+                if (CurrentLife < 0)
+                {
+                    GameController.StopGame();
+                }
             }
         }
     }
+   
 
     #region style
     void BackToNormalStyle()
     {
         Circle.color = new Color(1, 1, 1, 0);
-        Center.sprite = BlackHalo.sprite;
+        Center.sprite = WhiteHalo.sprite;
         Center.color = new Color(1,1,1,1);
 
-        //todo pos
+        gameObject.GetComponent<RectTransform>().position = initPos;
+    }
+
+    IEnumerator BackToWhite()
+    {
+        yield return new WaitForSeconds(hurtTime);
+        Center.sprite = GreenHalo.sprite;
     }
 
     public void EnterReady()
