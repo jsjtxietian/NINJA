@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 114840753304663150}
   - component: {fileID: 114825412234347160}
   - component: {fileID: 58263878079392640}
+  - component: {fileID: 114087135045453638}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -114,6 +115,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.49989998}
   serializedVersion: 2
   m_Radius: 197
+--- !u!114 &114087135045453638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448582929324356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd2aa41fb4ff0449b973b549c1a74ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  large: 1
+  small: 0.85
+  roundTime: 1
 --- !u!114 &114340270494481306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -206,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f361353b212f9419ff86763a3926b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 1777956777478910, guid: 172450cf47c41e64b91cedddf327f0c1, type: 2}
+  BulletFather: {fileID: 0}
 --- !u!114 &114840753304663150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,10 +234,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletsFather: {fileID: 0}
+  GameController: {fileID: 0}
+  hurtTime: 0
   index: 0
-  type: 0
+  initPos: {x: 0, y: 0, z: 0}
+  isLeft: 0
+  isGameStart: 0
+  GreenHalo: {fileID: 0}
+  WhiteHalo: {fileID: 0}
+  RedHalo: {fileID: 0}
+  Type: 0
   ShootSpeed: 0
   ways: 0
+  TotalLife: 0
+  CurrentLife: 0
+  angles: 
 --- !u!114 &114911532654052994
 MonoBehaviour:
   m_ObjectHideFlags: 1
