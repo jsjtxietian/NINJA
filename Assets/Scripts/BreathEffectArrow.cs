@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BreathEffectArrow : MonoBehaviour
 {
-
     public int length;
     public float roundTime;
 

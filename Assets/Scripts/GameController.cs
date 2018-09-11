@@ -87,6 +87,7 @@ public class GameController : MonoBehaviour
 
     public void StopGame()
     {
+        StopAllCoroutines();
         LeftItem.StopGame();
         RightItem.StopGame();
         Reset();

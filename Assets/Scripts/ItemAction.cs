@@ -73,6 +73,7 @@ public class ItemAction : MonoBehaviour
         }
 
         ConfigDirections();
+        gameObject.GetComponent<BreathEffect>().StopATBig();
     }
 
     void ConfigDirections()
@@ -103,6 +104,7 @@ public class ItemAction : MonoBehaviour
     public void StopGame()
     {
         CancelInvoke();
+        StopAllCoroutines();
         Reset();
     }
 
@@ -153,7 +155,7 @@ public class ItemAction : MonoBehaviour
                 b.OnHit();
                 Center.sprite = RedHalo.sprite;
 
-                StartCoroutine(BackToWhite());
+                StartCoroutine(BackToGreen());
 
                 if (CurrentLife < 0)
                 {
@@ -174,7 +176,7 @@ public class ItemAction : MonoBehaviour
         gameObject.GetComponent<RectTransform>().position = initPos;
     }
 
-    IEnumerator BackToWhite()
+    IEnumerator BackToGreen()
     {
         yield return new WaitForSeconds(hurtTime);
         Center.sprite = GreenHalo.sprite;

@@ -24,7 +24,6 @@ public class BreathEffect : MonoBehaviour
         NeedScale = false;
         smallOne = new Vector3(small, small, small);
         BigOne = new Vector3(large, large, large);
-       
         AddScaleEvent();
     }
 
@@ -64,5 +63,11 @@ public class BreathEffect : MonoBehaviour
         {
             NeedScale = true;
         };
+    }
+
+    public void StopATBig()
+    {
+        t.Kill();
+        t = transform.DOScale(BigOne, roundTime);
     }
 }
