@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public GameObject StandByUI;
     public GameObject ReadyUI;
     public GameObject FightUI;
+    public GameObject BG;
 
     //self data -- for game conrtol
     public BulletType currentOne;
@@ -54,6 +55,7 @@ public class GameController : MonoBehaviour
     {
         StandByUI.SetActive(false);
         ReadyUI.SetActive(true);
+        BG.GetComponent<BGController>().SwitchToLoop();
         LeftItem.EnterReady();
         RightItem.EnterReady();
     }
@@ -100,7 +102,7 @@ public class GameController : MonoBehaviour
         AddNum = 0;
 
         //end animation
-        FightUI.SetActive(false);
-        StandByUI.SetActive(true);
+        //FightUI.SetActive(false);
+        //StandByUI.SetActive(true);
     }
 }

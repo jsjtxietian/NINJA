@@ -31,5 +31,6 @@ public enum BulletType
 {
     None,
     a,
-    b
+    b,
+    effect
 }

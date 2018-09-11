@@ -6,18 +6,29 @@ using UnityEngine.UI;
 public class BGController : MonoBehaviour
 {
     // Use this for initialization
-    public MovieTexture movTexture;
+    public MovieTexture IntroMovieTexture;
+    public MovieTexture LoopMovieTexture;
 
     void Start()
     {
-        movTexture.loop = true;
-        movTexture.Play();
-        RawImage ri = gameObject.GetComponent<RawImage>();
-        ri.texture = movTexture;
+        SwitchToIntro();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SwitchToIntro()
     {
+        LoopMovieTexture.Stop();
+        IntroMovieTexture.loop = true;
+        IntroMovieTexture.Play();
+        RawImage ri = gameObject.GetComponent<RawImage>();
+        ri.texture = IntroMovieTexture;
+    }
+
+    public void SwitchToLoop()
+    {
+        IntroMovieTexture.Stop();
+        LoopMovieTexture.loop = true;
+        LoopMovieTexture.Play();
+        RawImage ri = gameObject.GetComponent<RawImage>();
+        ri.texture = LoopMovieTexture;
     }
 }

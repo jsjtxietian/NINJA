@@ -63,7 +63,7 @@ public class ItemAction : MonoBehaviour
                 TotalLife = CurrentLife = 180;
                 break;
             case BulletType.b:
-                ways = 3;
+                ways = 2;
                 ShootSpeed = 0.25f;
                 TotalLife = CurrentLife = 200;
                 break;
@@ -151,6 +151,11 @@ public class ItemAction : MonoBehaviour
                 return;
             else
             {
+                var boom = Pool.GetInstance(BulletType.effect);
+                //var boom = (GameObject)Resources.Load("Prefabs/BulletEffects");
+                //boom = Instantiate(boom);
+                boom.GetComponent<RectTransform>().position = b.gameObject.GetComponent<RectTransform>().position;
+
                 CurrentLife -= b.harm;
                 b.OnHit();
                 Center.sprite = RedHalo.sprite;

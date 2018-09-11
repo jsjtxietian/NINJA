@@ -11,6 +11,7 @@ public class ObjectsPool : MonoBehaviour
     {
         AddTypeObjects(BulletType.a);
         AddTypeObjects(BulletType.b);
+        AddTypeObjects(BulletType.effect);
     }
 
     void AddTypeObjects(BulletType type)
