@@ -49,12 +49,25 @@ public class RFIDReader : MonoBehaviour
 
     private void AddRFID(string rfid)
     {
-        foreach (var prebuild in Config.RFIDs)
+        int num = -1;
+
+        for (int i = 0; i < Config.RFIDs.Count; i++)
         {
-            if (rfid.Equals(prebuild))
+            if (rfid.Equals(Config.RFIDs[i]))
             {
-                Debug.Log("success" + rfid);
+                num = i;
             }
+        }
+
+        Debug.Log(rfid + "  " + num);
+
+        if (num == 0)
+        {
+            GameController.currentOne = BulletType.a;
+        }
+        else if (num == 1)
+        {
+            GameController.currentOne = BulletType.b;
         }
     }
 

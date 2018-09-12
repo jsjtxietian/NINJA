@@ -29,6 +29,7 @@ public class BulletAction : MonoBehaviour
 
     void OnEnable()
     {
+        Pool = transform.parent.parent.gameObject.GetComponent<ObjectsPool>();
         Invoke("DestorySelf", duration);
     }
 
