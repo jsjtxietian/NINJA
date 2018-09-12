@@ -24,7 +24,10 @@ public class SpriteAnimator : MonoBehaviour
     void Init()
     {
         index = 0;
-        Pool = transform.parent.parent.gameObject.GetComponent<ObjectsPool>();
+        if (!Path.Contains("VSEffect"))
+        {
+            Pool = transform.parent.parent.gameObject.GetComponent<ObjectsPool>();
+        }
         Sprites = Resources.LoadAll<Sprite>(Path);
         image = gameObject.GetComponent<Image>();
     }

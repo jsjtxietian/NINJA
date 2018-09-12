@@ -161,14 +161,15 @@ public class ItemAction : MonoBehaviour
     {
         if (isGameStart)
         {
-            BulletAction b = other.GetComponent<BulletAction>();
+            BulletAction b = other.gameObject.GetComponent<BulletAction>();
             if (b == null)
                 return;
             else
             {
                 //boom effect
                 var boom = Pool.GetInstance(BulletType.effect);
-                boom.GetComponent<RectTransform>().position = b.gameObject.GetComponent<RectTransform>().position;
+                boom.GetComponent<RectTransform>().position =
+                    b.GetComponent<RectTransform>().position;
 
                 //data part
                 CurrentLife -= b.harm;
@@ -183,7 +184,7 @@ public class ItemAction : MonoBehaviour
             }
         }
     }
-   
+
     #region style
     void BackToNormalStyle()
     {

@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public GameObject ReadyUI;
     public GameObject FightUI;
     public GameObject BG;
+    public GameObject VSUI;
 
     private GameObject LeftUI;
     private GameObject RightUI;
@@ -27,8 +28,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Reset();
-        LeftUI = ReadyUI.transform.GetChild(1).gameObject;
-        RightUI = ReadyUI.transform.GetChild(2).gameObject;
+        LeftUI = ReadyUI.transform.GetChild(0).gameObject;
+        RightUI = ReadyUI.transform.GetChild(1).gameObject;
     }
 
     // Update is called once per frame
@@ -62,7 +63,8 @@ public class GameController : MonoBehaviour
     private void PartReadyScene()
     {
         StandByUI.SetActive(false);
-        ReadyUI.SetActive(true);
+        VSUI.SetActive(true);
+
         BG.GetComponent<BGController>().SwitchToLoop();
 
         if (isLeft)
@@ -111,7 +113,6 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        ReadyUI.SetActive(false);
         LeftUI.SetActive(false);
         RightUI.SetActive(false);
 
@@ -124,7 +125,11 @@ public class GameController : MonoBehaviour
     public void StopGame()
     {
         FightUI.SetActive(false);
+        ReadyUI.SetActive(false);
+        VSUI.SetActive(false);
+
         StandByUI.SetActive(true);
+
         //todo end ui
         StopAllCoroutines();
         LeftItem.StopGame();
