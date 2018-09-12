@@ -20,7 +20,6 @@ public class GameController : MonoBehaviour
     //self data -- for game conrtol
     public BulletType currentOne;
     public bool isLeft;
-    public bool isGameStart;
     public bool LeftStart;
     public bool RightStart;
     private int AddNum;
@@ -63,6 +62,7 @@ public class GameController : MonoBehaviour
     private void PartReadyScene()
     {
         StandByUI.SetActive(false);
+        ReadyUI.SetActive(true);
         VSUI.SetActive(true);
 
         BG.GetComponent<BGController>().SwitchToLoop();
@@ -128,6 +128,7 @@ public class GameController : MonoBehaviour
         ReadyUI.SetActive(false);
         VSUI.SetActive(false);
 
+        BG.GetComponent<BGController>().SwitchToIntro();
         StandByUI.SetActive(true);
 
         //todo end ui

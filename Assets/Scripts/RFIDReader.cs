@@ -49,6 +49,8 @@ public class RFIDReader : MonoBehaviour
 
     private void AddRFID(string rfid)
     {
+        Debug.Log("result=" + rfid);
+
         int num = -1;
 
         for (int i = 0; i < Config.RFIDs.Count; i++)
@@ -58,8 +60,6 @@ public class RFIDReader : MonoBehaviour
                 num = i;
             }
         }
-
-        Debug.Log(rfid + "  " + num);
 
         if (num == 0)
         {
