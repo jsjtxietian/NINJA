@@ -10,6 +10,7 @@ public class BulletAction : MonoBehaviour
 
     //data part
     public BulletType type;
+
     public float duration;
     public int harm;
     public int speed;
@@ -28,34 +29,40 @@ public class BulletAction : MonoBehaviour
 
     void OnEnable()
     {
-	    StartCoroutine(DestorySelf());
+        Invoke("DestorySelf", duration);
     }
 
     void OnDisable()
     {
-        gameObject.GetComponent<RectTransform>().localEulerAngles = new Vector3(0,0, originZ);
+        gameObject.GetComponent<RectTransform>().localEulerAngles = new Vector3(0, 0, originZ);
     }
 
     public void Init(int angle)
     {
-        Vector3 originVector = gameObject.GetComponent<RectTransform>().localEulerAngles ;
-        gameObject.GetComponent<RectTransform>().localEulerAngles = new Vector3(0,0,originVector.z + angle);
+        Vector3 originVector = gameObject.GetComponent<RectTransform>().localEulerAngles;
+        gameObject.GetComponent<RectTransform>().localEulerAngles = new Vector3(0, 0, originVector.z + angle);
     }
 
     public void OnHit()
     {
+        //StopAllCoroutines();
         CancelInvoke();
         Pool.ReturnInstance(type, gameObject);
     }
 
     void Update()
     {
-        gameObject.GetComponent<RectTransform>().position += transform.right*speed * Time.deltaTime;
+        gameObject.GetComponent<RectTransform>().position += transform.right * speed * Time.deltaTime;
     }
 
-    IEnumerator DestorySelf()
+    //IEnumerator DestorySelf()
+    //{
+    //    yield return new WaitForSeconds(duration);
+    //    Pool.ReturnInstance(type,gameObject);
+    //}
+
+    void DestorySelf()
     {
-        yield return new WaitForSeconds(duration);
-        Pool.ReturnInstance(type,gameObject);
+        Pool.ReturnInstance(type, gameObject);
     }
 }

@@ -21,6 +21,7 @@ public class ItemAction : MonoBehaviour
     public Image RedHalo;
     private Image Center;
     private Image Circle;
+    public GameObject IntroWord;
 
     //bullet data
     public BulletType Type;
@@ -28,8 +29,20 @@ public class ItemAction : MonoBehaviour
     public float ShootSpeed;
     public int ways;
     public int TotalLife;
-    public int CurrentLife;
+    public int currentLife;
     public List<int> angles;
+
+    public int CurrentLife
+    {
+        get { return currentLife; }
+        set
+        {
+            currentLife = value;
+            Center.sprite = RedHalo.sprite;
+            Center.color = new Color(1,1,1,0.8f*currentLife/TotalLife+0.2f);
+            StartCoroutine(BackToGreen());
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -59,13 +72,15 @@ public class ItemAction : MonoBehaviour
         {
             case BulletType.a:
                 ways = 1;
-                ShootSpeed = 0.5f;
-                TotalLife = CurrentLife = 180;
+                ShootSpeed = 0.2f;
+                TotalLife = currentLife = 180;
+                IntroWord.GetComponent<SpriteAnimator>().Path = "Sequence/VSBLK";
                 break;
             case BulletType.b:
                 ways = 2;
-                ShootSpeed = 0.25f;
-                TotalLife = CurrentLife = 200;
+                ShootSpeed = 0.3f;
+                TotalLife = currentLife = 200;
+                IntroWord.GetComponent<SpriteAnimator>().Path = "Sequence/VSWHT";
                 break;
 
             default:
@@ -137,7 +152,7 @@ public class ItemAction : MonoBehaviour
     {
         index = 10;
         isGameStart = false;
-        CurrentLife = TotalLife;
+        currentLife = TotalLife;
 
         BackToNormalStyle();
     }
@@ -151,18 +166,17 @@ public class ItemAction : MonoBehaviour
                 return;
             else
             {
+                //boom effect
                 var boom = Pool.GetInstance(BulletType.effect);
-                //var boom = (GameObject)Resources.Load("Prefabs/BulletEffects");
-                //boom = Instantiate(boom);
                 boom.GetComponent<RectTransform>().position = b.gameObject.GetComponent<RectTransform>().position;
 
+                //data part
                 CurrentLife -= b.harm;
+
+                //bullet part
                 b.OnHit();
-                Center.sprite = RedHalo.sprite;
 
-                StartCoroutine(BackToGreen());
-
-                if (CurrentLife < 0)
+                if (currentLife < 0)
                 {
                     GameController.StopGame();
                 }
@@ -170,7 +184,6 @@ public class ItemAction : MonoBehaviour
         }
     }
    
-
     #region style
     void BackToNormalStyle()
     {
@@ -201,6 +214,4 @@ public class ItemAction : MonoBehaviour
 
 
     #endregion
-
-
 }

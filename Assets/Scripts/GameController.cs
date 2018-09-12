@@ -13,6 +13,9 @@ public class GameController : MonoBehaviour
     public GameObject FightUI;
     public GameObject BG;
 
+    private GameObject LeftUI;
+    private GameObject RightUI;
+
     //self data -- for game conrtol
     public BulletType currentOne;
     public bool isLeft;
@@ -24,6 +27,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Reset();
+        LeftUI = ReadyUI.transform.GetChild(1).gameObject;
+        RightUI = ReadyUI.transform.GetChild(2).gameObject;
     }
 
     // Update is called once per frame
@@ -38,26 +43,52 @@ public class GameController : MonoBehaviour
                 item.Init(currentOne, 0);
                 currentOne = BulletType.None;
                 AddNum++;
+
+                PartReadyScene();
             }
+
             else if (Input.touches.Length == 2 && AddNum == 1)
             {
                 ItemAction item = isLeft ? RightItem : LeftItem;
                 item.Init(currentOne, 1);
                 currentOne = BulletType.None;
                 AddNum++;
-                EnterReadyScene();
+                AllReady();
             }
         }
 
     }
 
-    private void EnterReadyScene()
+    private void PartReadyScene()
     {
         StandByUI.SetActive(false);
         ReadyUI.SetActive(true);
         BG.GetComponent<BGController>().SwitchToLoop();
-        LeftItem.EnterReady();
-        RightItem.EnterReady();
+
+        if (isLeft)
+        {
+            LeftItem.EnterReady();
+            LeftUI.SetActive(true);
+        }
+        else
+        {
+            RightItem.EnterReady();
+            RightUI.SetActive(true);
+        }
+    }
+
+    private void AllReady()
+    {
+        if (!isLeft)
+        {
+            LeftItem.EnterReady();
+            LeftUI.SetActive(true);
+        }
+        else
+        {
+            RightItem.EnterReady();
+            RightUI.SetActive(true);
+        }
     }
 
     public void StartButtonLeft()
@@ -81,6 +112,9 @@ public class GameController : MonoBehaviour
     public void StartGame()
     {
         ReadyUI.SetActive(false);
+        LeftUI.SetActive(false);
+        RightUI.SetActive(false);
+
         FightUI.SetActive(true);
 
         LeftItem.EnterFight();
@@ -89,6 +123,9 @@ public class GameController : MonoBehaviour
 
     public void StopGame()
     {
+        FightUI.SetActive(false);
+        StandByUI.SetActive(true);
+        //todo end ui
         StopAllCoroutines();
         LeftItem.StopGame();
         RightItem.StopGame();
@@ -100,9 +137,5 @@ public class GameController : MonoBehaviour
         currentOne = BulletType.None;
         LeftStart = RightStart = false;
         AddNum = 0;
-
-        //end animation
-        //FightUI.SetActive(false);
-        //StandByUI.SetActive(true);
     }
 }
