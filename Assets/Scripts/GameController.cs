@@ -32,6 +32,9 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 24;
+        Cursor.visible = false;
+
         Reset();
         LeftUI = ReadyUI.transform.GetChild(0).gameObject;
         RightUI = ReadyUI.transform.GetChild(1).gameObject;
@@ -143,9 +146,13 @@ public class GameController : MonoBehaviour
             BG.GetComponent<BGController>().SwitchToIntro();
             StandByUI.SetActive(true);
             EndUI.SetActive(false);
+            LeftItem.gameObject.SetActive(true);
+            RightItem.gameObject.SetActive(true);
         };
         EndUI.GetComponent<SpriteAnimator>().Path = GetPath(type);
         EndUI.SetActive(true);
+        LeftItem.gameObject.SetActive(false);
+        RightItem.gameObject.SetActive(false);
     }
 
     private string GetPath(BulletType type)
