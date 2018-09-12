@@ -157,12 +157,12 @@ public class GameController : MonoBehaviour
 
     private string GetPath(BulletType type)
     {
-        //a 冥角 b金角
+        //a金角 b银角
         System.Random r = new System.Random();
         int a = r.Next(3);
         if (a == 0)
         {
-            if (type == BulletType.b)
+            if (type == BulletType.a)
             {
                 a = 1;
             }

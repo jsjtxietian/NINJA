@@ -126,6 +126,7 @@ public class ItemAction : MonoBehaviour
     {
         CancelInvoke();
         StopAllCoroutines();
+        Pool.RecycleAll();
         Reset();
     }
 
@@ -147,12 +148,7 @@ public class ItemAction : MonoBehaviour
             gameObject.GetComponent<RectTransform>().position = Input.touches[index].position;
         }
 
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    Init(BulletType.b, 0);
-        //    EnterFight();
-        //    InvokeRepeating("Shoot", 0, ShootSpeed);
-        //}
+       
     }
 
     void Reset()

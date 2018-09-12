@@ -24,6 +24,27 @@ public class ObjectsPool : MonoBehaviour
         }
     }
 
+    public void RecycleAll()
+    {
+        Recycle(BulletType.a);
+        Recycle(BulletType.b);
+        Recycle(BulletType.effect);
+    }
+
+    void Recycle(BulletType type)
+    {
+        Transform ObjectsFather = BulletFather.transform.Find("Collection-" + type.ToString());
+        for (int i = 0; i < ObjectsFather.childCount; i++)
+        {
+            var current = ObjectsFather.GetChild(i).gameObject;
+            if (current.active)
+            {
+                current.SetActive(false);
+                Pool[type].Enqueue(current);
+            }
+        }
+    }
+
     public GameObject GetInstance(BulletType type)
     {
         if (Pool[type].Count > 0) { 
