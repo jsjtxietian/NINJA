@@ -9,6 +9,9 @@ public class ItemAction : MonoBehaviour
     public GameObject BulletsFather;
     public GameController GameController;
     private ObjectsPool Pool;
+    public AudioSource Shoot1Audio;
+    public AudioSource Shoot2Audio;
+    public AudioSource Explode;
 
     //self data
     public float hurtTime;
@@ -22,6 +25,7 @@ public class ItemAction : MonoBehaviour
     private Image Center;
     private Image Circle;
     public GameObject IntroWord;
+    private AudioSource SelfShootAudio;
 
     //bullet data
     public BulletType Type;
@@ -75,12 +79,14 @@ public class ItemAction : MonoBehaviour
                 ShootSpeed = 0.2f;
                 TotalLife = currentLife = 180;
                 IntroWord.GetComponent<SpriteAnimator>().Path = "Sequence/VSBLK";
+                SelfShootAudio = Shoot1Audio;
                 break;
             case BulletType.b:
                 ways = 2;
                 ShootSpeed = 0.3f;
                 TotalLife = currentLife = 200;
                 IntroWord.GetComponent<SpriteAnimator>().Path = "Sequence/VSWHT";
+                SelfShootAudio = Shoot2Audio;
                 break;
 
             default:
@@ -125,6 +131,7 @@ public class ItemAction : MonoBehaviour
 
     void Shoot()
     {
+        SelfShootAudio.Play();
         for (int i = 0; i < ways; i++)
         {
             GameObject bullet = Pool.GetInstance(Type);
@@ -177,9 +184,12 @@ public class ItemAction : MonoBehaviour
                 //bullet part
                 b.OnHit();
 
+                //music part
+                Explode.Play();
+
                 if (currentLife < 0)
                 {
-                    GameController.StopGame();
+                    GameController.StopGame(Type);
                 }
             }
         }

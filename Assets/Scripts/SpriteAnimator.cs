@@ -8,6 +8,8 @@ public class SpriteAnimator : MonoBehaviour
     private Image image;
     public bool NeedDestory;
     public string Path;
+    public EndAction onEnd;
+    public AudioSource Music;
 
     private int index = 0;
 
@@ -24,12 +26,16 @@ public class SpriteAnimator : MonoBehaviour
     void Init()
     {
         index = 0;
-        if (!Path.Contains("VSEffect"))
+        if (!Path.Contains("VSEffect") && !Path.Contains("T01") && !Path.Contains("End"))
         {
             Pool = transform.parent.parent.gameObject.GetComponent<ObjectsPool>();
         }
         Sprites = Resources.LoadAll<Sprite>(Path);
         image = gameObject.GetComponent<Image>();
+        if (Music != null)
+        {
+            Music.Play();
+        }
     }
 
     void Update()
@@ -41,9 +47,22 @@ public class SpriteAnimator : MonoBehaviour
             return;
         }
 
+        if(index == Sprites.Length && onEnd!= null)
+        {
+            onEnd();
+        }
+
         if (index == Sprites.Length && NeedDestory)
         {
             Pool.ReturnInstance(BulletType.effect, gameObject);
+        }
+    }
+
+    void OnDisable()
+    {
+        if (Music != null)
+        {
+            Music.Stop();
         }
     }
 }

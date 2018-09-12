@@ -34,3 +34,5 @@ public enum BulletType
     b,
     effect
 }
+
+public delegate void EndAction();

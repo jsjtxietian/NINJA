@@ -2,23 +2,29 @@
 using System.Collections.Generic;
 using System.Security.AccessControl;
 using UnityEngine;
+using System;
 
 public class GameController : MonoBehaviour
 {
     //gameobject
     public ItemAction LeftItem;
+
     public ItemAction RightItem;
     public GameObject StandByUI;
     public GameObject ReadyUI;
     public GameObject FightUI;
     public GameObject BG;
     public GameObject VSUI;
+    public GameObject EndUI;
+
+    public List<string> EndUIPath;
 
     private GameObject LeftUI;
     private GameObject RightUI;
 
     //self data -- for game conrtol
     public BulletType currentOne;
+
     public bool isLeft;
     public bool LeftStart;
     public bool RightStart;
@@ -56,7 +62,6 @@ public class GameController : MonoBehaviour
                 AllReady();
             }
         }
-
     }
 
     private void PartReadyScene()
@@ -122,20 +127,45 @@ public class GameController : MonoBehaviour
         RightItem.EnterFight();
     }
 
-    public void StopGame()
+    public void StopGame(BulletType type)
     {
         FightUI.SetActive(false);
         ReadyUI.SetActive(false);
         VSUI.SetActive(false);
 
-        BG.GetComponent<BGController>().SwitchToIntro();
-        StandByUI.SetActive(true);
-
-        //todo end ui
         StopAllCoroutines();
         LeftItem.StopGame();
         RightItem.StopGame();
         Reset();
+
+        EndUI.GetComponent<SpriteAnimator>().onEnd = () =>
+        {
+            BG.GetComponent<BGController>().SwitchToIntro();
+            StandByUI.SetActive(true);
+            EndUI.SetActive(false);
+        };
+        EndUI.GetComponent<SpriteAnimator>().Path = GetPath(type);
+        EndUI.SetActive(true);
+    }
+
+    private string GetPath(BulletType type)
+    {
+        //a 冥角 b金角
+        System.Random r = new System.Random();
+        int a = r.Next(3);
+        if (a == 0)
+        {
+            if (type == BulletType.b)
+            {
+                a = 1;
+            }
+        }
+        else
+        {
+            a += 1;
+        }
+
+        return EndUIPath[a];
     }
 
     public void Reset()
