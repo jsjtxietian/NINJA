@@ -199,7 +199,7 @@ public class ItemAction : MonoBehaviour
                 b.OnHit();
 
                 //music part
-                Explode.Play();
+                //Explode.Play();
 
                 if (currentLife < 0)
                 {
