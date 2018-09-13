@@ -6019,6 +6019,7 @@ GameObject:
   - component: {fileID: 374474488}
   - component: {fileID: 374474490}
   - component: {fileID: 374474489}
+  - component: {fileID: 374474491}
   m_Layer: 5
   m_Name: FightBG
   m_TagString: Untagged
@@ -6077,6 +6078,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 374474487}
+--- !u!114 &374474491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 374474487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a09c81e5470bab4e85e25c518556523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprites: []
+  PathIn: Sequence/CZOOM
+  PathLoop: Sequence/CLOOP
 --- !u!1001 &376040403
 Prefab:
   m_ObjectHideFlags: 0

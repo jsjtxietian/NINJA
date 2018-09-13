@@ -7,6 +7,7 @@ public class ItemAction : MonoBehaviour
 {
     //other gameobject 
     public GameObject BulletsFather;
+
     public GameController GameController;
     private ObjectsPool Pool;
     public AudioSource Shoot1Audio;
@@ -15,7 +16,9 @@ public class ItemAction : MonoBehaviour
 
     //self data
     public float hurtTime;
+
     public int index;
+    private int fingerid;
     public Vector3 initPos;
     public bool isLeft;
     public bool isGameStart;
@@ -43,7 +46,7 @@ public class ItemAction : MonoBehaviour
         {
             currentLife = value;
             Center.sprite = RedHalo.sprite;
-            Center.color = new Color(1,1,1,0.8f*currentLife/TotalLife+0.2f);
+            Center.color = new Color(1, 1, 1, 0.8f * currentLife / TotalLife + 0.2f);
             StartCoroutine(BackToGreen());
         }
     }
@@ -69,6 +72,7 @@ public class ItemAction : MonoBehaviour
     public void Init(BulletType type, int _index)
     {
         index = _index;
+        fingerid = Input.touches[index].fingerId;
         Type = type;
         angles.Clear();
 
@@ -137,18 +141,32 @@ public class ItemAction : MonoBehaviour
         {
             GameObject bullet = Pool.GetInstance(Type);
             bullet.GetComponent<BulletAction>().Init(angles[i]);
-            bullet.GetComponent<RectTransform>().position = gameObject.GetComponent<RectTransform>().position + transform.right*240 + transform.up * angles[i]*5;
+            bullet.GetComponent<RectTransform>().position = gameObject.GetComponent<RectTransform>().position +
+                                                            transform.right * 240 + transform.up * angles[i] * 5;
         }
     }
 
     void Update()
     {
-        if (Input.touchCount > index && isGameStart)
+        if (isGameStart)
         {
-            gameObject.GetComponent<RectTransform>().position = Input.touches[index].position;
+            Vector3 newPos = GetPosByFingerId();
+            if (!newPos.Equals(Vector3.back))
+            {
+                gameObject.GetComponent<RectTransform>().position = newPos;
+            }
+        }
+    }
+
+    Vector3 GetPosByFingerId()
+    {
+        foreach (var touch in Input.touches)
+        {
+            if (touch.fingerId == fingerid)
+                return touch.position;
         }
 
-       
+        return Vector3.back;
     }
 
     void Reset()
@@ -192,11 +210,12 @@ public class ItemAction : MonoBehaviour
     }
 
     #region style
+
     void BackToNormalStyle()
     {
         Circle.color = new Color(1, 1, 1, 0);
         Center.sprite = WhiteHalo.sprite;
-        Center.color = new Color(1,1,1,1);
+        Center.color = new Color(1, 1, 1, 1);
 
         gameObject.GetComponent<RectTransform>().position = initPos;
     }
@@ -218,7 +237,6 @@ public class ItemAction : MonoBehaviour
         Center.color = new Color(1, 1, 1, 0.8f);
         GameStart();
     }
-
 
     #endregion
 }
