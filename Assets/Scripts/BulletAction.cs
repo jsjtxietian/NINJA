@@ -36,6 +36,7 @@ public class BulletAction : MonoBehaviour
     void OnDisable()
     {
         gameObject.GetComponent<RectTransform>().localEulerAngles = new Vector3(0, 0, originZ);
+        CancelInvoke();
     }
 
     public void Init(int angle)
