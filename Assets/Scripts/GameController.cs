@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        Application.targetFrameRate = 24;
+        //Application.targetFrameRate = 24;
         Cursor.visible = false;
 
         Reset();
